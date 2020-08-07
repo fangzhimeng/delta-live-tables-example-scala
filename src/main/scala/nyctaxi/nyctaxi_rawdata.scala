@@ -70,19 +70,19 @@ class NYCTaxiPipeline extends Pipeline with Implicits {
   // Taxi Lookup
   createView("taxi_lookup")
     .query{
-      spark.read.format("csv").schema(schema_taxi_lookup).option("delimiter", ",").option("header", "true").load("/mnt/databricks-dennylee/nyctaxi/taxizone/taxi_zone_lookup.csv")
+      spark.read.format("csv").schema(schema_taxi_lookup).option("delimiter", ",").option("header", "true").load("/databricks-datasets/nyctaxi/taxizone/taxi_zone_lookup.csv")
     }
 
   // Taxi Rate Code
   createView("taxi_rate_code")
     .query{
-      spark.read.format("csv").schema(schema_taxi_rate_code).option("delimiter", ",").option("header", "true").load("/mnt/databricks-dennylee/nyctaxi/taxizone/taxi_rate_code.csv")
+      spark.read.format("csv").schema(schema_taxi_rate_code).option("delimiter", ",").option("header", "true").load("/databricks-datasets/nyctaxi/taxizone/taxi_rate_code.csv")
     }
 
   // Taxi Payment Type
   createView("taxi_payment_type")
     .query{
-      spark.read.format("csv").schema(schema_taxi_payment_type).option("delimiter", ",").option("header", "true").load("/mnt/databricks-dennylee/nyctaxi/taxizone/taxi_payment_type.csv")
+      spark.read.format("csv").schema(schema_taxi_payment_type).option("delimiter", ",").option("header", "true").load("/databricks-datasets/nyctaxi/taxizone/taxi_payment_type.csv")
     }
 
   //
@@ -98,7 +98,7 @@ class NYCTaxiPipeline extends Pipeline with Implicits {
           .option("delimiter", ",")
           .option("header", "true")
           .option("maxFilesPerTrigger", "1")  // Let data slowly trickle in
-          .load("/mnt/databricks-dennylee/nyctaxi/tripdata/yellow-sample/*.csv") // Yellow Cab, 2019-01 only
+          .load("/databricks-datasets/nyctaxi/tripdata/yellow/*.csv.gz") // Yellow Cab, 2019-01 only
     }
     .expect("valid tpep_pickup_datetime", "tpep_pickup_datetime IS NOT NULL")   // Expect this to kick in due to many values being NULL in earlier files (e.g. 2015 datasets)
     .expect("valid tpep_dropoff_datetime", "tpep_dropoff_datetime IS NOT NULL")
@@ -113,7 +113,7 @@ class NYCTaxiPipeline extends Pipeline with Implicits {
        .option("delimiter", ",")
        .option("header", "true")
        .option("maxFilesPerTrigger", "1")
-       .load("/mnt/databricks-dennylee/nyctaxi/tripdata/green-sample/*.csv") // Green Cab, 2019-01 only
+       .load("/databricks-datasets/nyctaxi/tripdata/green/*.csv.gz") // Green Cab, 2019-01 only
    }
    .expect("valid pep_pickup_datetime", "lpep_pickup_datetime IS NOT NULL")   // Expect this to kick in due to many values being NULL in earlier files (e.g. 2015 datasets)
    .expect("valid pep_dropoff_datetime", "lpep_dropoff_datetime IS NOT NULL")
