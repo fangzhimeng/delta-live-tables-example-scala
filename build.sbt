@@ -18,18 +18,18 @@ name := "delta-pipelines-example-scala"
 
 organization := "com.databricks.pipelines.examples"
 
-crossScalaVersions := Seq("2.12.8", "2.11.12")
+crossScalaVersions := Seq("2.12.8")
 
 scalaVersion := crossScalaVersions.value.head
 
-sparkVersion := "3.0.0-SNAPSHOT"
+val sparkVersion = "3.0.0-SNAPSHOT"
 
 libraryDependencies ++= Seq(
   "io.delta" %% "delta-core" % "0.7.0-SNAPSHOT" % "provided",
-  "org.apache.spark" %% "spark-hive" % sparkVersion.value % "provided",
-  "org.apache.spark" %% "spark-sql" % sparkVersion.value % "provided",
-  "org.apache.spark" %% "spark-core" % sparkVersion.value % "provided",
-  "org.apache.spark" %% "spark-catalyst" % sparkVersion.value % "provided",
+  "org.apache.spark" %% "spark-hive" % sparkVersion % "provided",
+  "org.apache.spark" %% "spark-sql" % sparkVersion % "provided",
+  "org.apache.spark" %% "spark-core" % sparkVersion % "provided",
+  "org.apache.spark" %% "spark-catalyst" % sparkVersion % "provided",
 
   "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 )
