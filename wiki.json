@@ -1,6 +1,5 @@
 {
-  "__comment": "Please update the id and location for your pipeline",
-  "id": "38a48a6b-1f53-4836-aa62-2fcbfb965620",  
+  "__comment": "Please update the location for your pipeline before your first deployment.",
   "name": "Wiki Pipeline",
   "storage": "dbfs:/pipeline-examples/my-location/wiki-new",
   "filters": {

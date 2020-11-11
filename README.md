@@ -31,9 +31,11 @@ The package command is going to build a jar for your pipeline in the following l
 target/scala-2.12/delta-pipelines-example-scala_2.12-0.0.1-SNAPSHOT.jar
 ```
 #### 3. Setup the Databricks CLI:
-Full documentation can be found [here](https://docs.databricks.com/dev-tools/cli/index.html)
+Full documentation can be found [here](https://docs.databricks.com/dev-tools/cli/index.html).
 
-You'll need at least version 0.11.0. If you are a running an earlier version you should first uninstall it. If you have existing environments, it might be cleaner to use conda to create a new one:
+CLI version 0.12.0 is required to deploy a new pipeline, and version 0.14.0 has the latest pipelines commands.
+
+If you are a running an earlier version you should first uninstall it. If you have existing environments, it might be cleaner to use conda to create a new one:
 ```bash
 conda create --name delta-pipelines python=3.8
 conda activate delta-pipelines
@@ -50,11 +52,21 @@ A pipeline spec is used to specify a collection of code and configuration that i
 
 In our case the pipeline spec is ``wiki.json`` and can be found in the root of this repo. As you will see if you open it up, the pipeline spec is going to contain a number of things, including the filepath to the jar we built above, and the classpath to our example pipeline. It could additionally contain cluster specs, other code dependencies (libraries) etc...
 
+To create a new pipeline, you can simply run the following. 
 ```bash
 cd delta-pipelines-example-scala/
 databricks pipelines deploy wiki.json --profile <profile-name>
 ```
-You should get a response saying that the pipeline has been successfully deployed, and a URL you can use to take you to the pipeline:
+
+You should get a response saying that the pipeline has been successfully deployed, the ID of the newly created pipeline, and a URL you can use to take you to the pipeline:
 ```bash
+30cbebf7-9008-4b9a-87ae-4ca5bb95eca0
 Pipeline successfully deployed: https://...
 ```
+
+You should create a new "id" field in your pipeline spec, and insert the logged ID there. Then, the next time you call `databricks pipelines deploy` with the same spec, it will update the pipeline you just created (instead of creating a new one). Alternatively, you can also explicitly specify an ID using the `--pipeline_id` parameter as follows:
+```bash
+cd delta-pipelines-example-scala/
+databricks pipelines deploy wiki.json --profile <profile-name> --pipeline_id 30cbebf7-9008-4b9a-87ae-4ca5bb95eca0
+```
+If you've lost the ID of a pipeline you've created, you can use the `databricks pipelines list` command to see all the pipelines you own.

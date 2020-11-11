@@ -1,6 +1,5 @@
 {
-  "__comment": "Please update the id and location for your pipeline",
-  "id": "9b4b221e-492d-4a27-8ee2-1b30f0563227",  
+  "__comment": "Please update the location for your pipeline before your first deployment.",
   "name": "Pipeline Demo NYCTaxi",
   "storage": "dbfs:/pipeline-examples/my-location/nyctaxi",
   "filters": {
