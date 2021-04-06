@@ -27,7 +27,7 @@ class WikiPipeline extends Pipeline with Implicits {
 
   createTable("wiki_data")
     .query {
-      input("raw_wiki_data")
+      readStream("raw_wiki_data")
         .withColumn("timestamp", $"timestamp".cast("timestamp"))
         .withColumn("date", $"timestamp".cast("date"))
     }
@@ -37,7 +37,7 @@ class WikiPipeline extends Pipeline with Implicits {
 
   createTable("count_per_hour")
     .query {
-      input("wiki_data")
+      read("wiki_data")
         .withColumn("window", window($"timestamp", "1 HOUR").getField("start"))
         .groupBy($"window")
         .agg(count("*") as 'count)
