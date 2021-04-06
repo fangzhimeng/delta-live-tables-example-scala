@@ -21,7 +21,7 @@ git clone git@github.com:databricks/delta-pipelines-example-scala.git
 If the goal is to develop the project further, you'll probably want to add it to your favourite IDE as a new project from existing sources. If you just want to build and run it, you should be ok just running the sbt package command:
 
 ```bash
-sbt package
+build/sbt package
 ```
 
 If you've added it to your IDE, just create a new run configuration that invokes the sbt package task

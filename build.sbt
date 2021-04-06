@@ -18,14 +18,14 @@ name := "delta-pipelines-example-scala"
 
 organization := "com.databricks.pipelines.examples"
 
-crossScalaVersions := Seq("2.12.8")
+crossScalaVersions := Seq("2.12.10")
 
 scalaVersion := crossScalaVersions.value.head
 
-val sparkVersion = "3.0.0-SNAPSHOT"
+val sparkVersion = "3.1.1"
 
 libraryDependencies ++= Seq(
-  "io.delta" %% "delta-core" % "0.7.0-SNAPSHOT" % "provided",
+  "io.delta" %% "delta-core" % "0.8.0" % "provided",
   "org.apache.spark" %% "spark-hive" % sparkVersion % "provided",
   "org.apache.spark" %% "spark-sql" % sparkVersion % "provided",
   "org.apache.spark" %% "spark-core" % sparkVersion % "provided",
@@ -33,6 +33,3 @@ libraryDependencies ++= Seq(
 
   "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 )
-
-resolvers += "Temporary Staging of Spark 3.0" at "https://docs.delta.io/spark3artifacts/snapshot-5687b31be3f/maven/"
-resolvers += "Pipelines Preview Repo" at "https://docs.delta.io/spark3preview/"
